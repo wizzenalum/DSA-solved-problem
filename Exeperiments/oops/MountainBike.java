@@ -1,7 +1,6 @@
-package test;
-
+package cycles;
 // another class that inherite this class.
-public class MountainBike extends Bicycle{
+ class MountainBike extends Bicycle{
 	// field
 	public int seatHeight;
 	// one constroctor
@@ -14,5 +13,9 @@ public class MountainBike extends Bicycle{
 
 	public void seatHeight(int var){
 		seatHeight = var;
+	}
+	public int[] getStatus(){
+		int[] arr= {super.candence, super.gear, super.speed,seatHeight};
+		return arr;
 	}
 }
