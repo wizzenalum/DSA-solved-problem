@@ -14,6 +14,9 @@ public class datatype_conversion_extreme_cases{
 		// char1 = num1;  
 		// System.out.print(cahr1);
 	// error int to char conversion 
+	// 	char1 = (char) num1;
+	// 	System.out.println(char1);//no error
+	// // means we just need to type cast expicitly the problem was storage size.
 	//2. equating integer variable to character variable.
 		// num1 = char1; 
 		// System.out.print(num1);
@@ -25,12 +28,13 @@ public class datatype_conversion_extreme_cases{
 		// num1 = char1+char2;
 		// System.out.print(num1);
 //test2 if we use short insted of int than this conversion porblem may not be there.
-		// short num1 = 97,num2 = 100;
-		// char char1 = 'A',char2 = 'Z';
+		short num1 = 97,num2 = 100;
+		char char1 = 'A',char2 = 'Z';
 	//1. equating character variable to the short variable.
-		// char1 = num1;  
-		// System.out.print(cahr1);
-	// error short to char conversion even both have same space. 
+		char1 = num1;//error short to char conversion even both have same space. 
+		char1 = (char)num1;  // NO Error
+		System.out.print(char1);
+	
 	//2. equating integer variable to character variable.
 		// num1 = char1; 
 		// System.out.print(num1);
@@ -91,15 +95,14 @@ public class datatype_conversion_extreme_cases{
 
 /*############################################################################
 									CONCLUSION
-		1. we can't convert any data type of number data type to char data type.
-		2. we can convert the a number litral into char if 0<=number<65535. because after
-			it shows some short of sorogate phinomena or character bomb.
-		3. boolean can't convert in any other datatype and not even any litrals.
-		4. when we aply operators then each litral use its default types numbers are int, decimals are double,
+		1. char stored in from of unicode that can be converted to integer, if 0<=number<65535. because after
+			it shows some short of sorogate phinomena or character bomb. but reverse not possible.
+		2. boolean can't convert in any other datatype and not even any litrals.
+		3. when we aply operators then each litral use its default types numbers are int, decimals are double,
 			char is char, 
-		5. no data type can hold bigger than what is assign to it.
-		6. if we operate two numbers and we then it go beyound the nubers then it will still not give error.
-		7. int, long looks like cyclingthrough those digits.abstract
+		4. we can'nt assign bigger numbers what a data type can't hold, but during the operations expression give bigger 
+			number then int, long start cycle through it.
+		5. float and double give infinity as they reachs it s thresolds.
 		#############################################################################*/		
 // what is meaning of returning the infinity
 // question nuber litral is assmed to be int as we see it when we convert boolean i = 97;execute. then why this integer litral converts to char.
