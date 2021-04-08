@@ -43,7 +43,24 @@ class FindNonRepeatingCharacter {
         	arr[currentChar-'a']++; 
         }
     }
+
+    public static void nonrep1(String str) {
+        int[] arr = new int[26];
+        Queue<Character> queue = new LinkedList<>();
+        char currentChar = '1';
+
+        for(int i = 0; i<str.length();i++){
+            currentChar = str.charAt(i);
+            if(arr[currentChar-'a']==0) queue.add(currentChar);
+            arr[currentChar-'a']++;
+
+            while((!queue.isEmpty()) && arr[queue.peek()-'a']>1) queue.poll();
+            if(queue.isEmpty()) System.out.print("-1");
+            else System.out.print(queue.peek());
+            
+        }
+    }
     public static void main(String[] args) {
-    	nonrep("aaabbcdefced");
+    	nonrep1("aaabbcdefced");
     }
 }
