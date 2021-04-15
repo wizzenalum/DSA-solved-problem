@@ -56,10 +56,7 @@ class BinarySearchTree {
 	private static void insertHelper(BinaryTreeNode<Integer> root, int data){
 		if(root==null) return;
 		BinaryTreeNode<Integer> node = new BinaryTreeNode<>(data);
-		if(root.data==data){             
-			node.left = root.left;
-			root.left = node;
-		}else if(data<root.data){
+		if(data<=root.data){
 			if(root.left!=null) insertHelper(root.left,data);
 			else root.left=node;
 		}else{
@@ -69,32 +66,12 @@ class BinarySearchTree {
 
 	}
 
-	public void insert1(int data) {
+	public void insert(int data) {
 		if(this.root==null){
 			this.root = new BinaryTreeNode<>(data);
 		}else insertHelper(this.root,data);
 	}
-// another way of insertion
-	private static BinaryTreeNode<Integer> insertHelper1(BinaryTreeNode<Integer> root, int data){
-		if(root==null) return new BinaryTreeNode<>(data);
-		BinaryTreeNode<Integer> node = null;
-		if(root.data==data){ 
-			node = new BinaryTreeNode<>(data);            
-			node.left = root.left;
-			root.left = node;
-		}else if(data<root.data){
-			node = insertHelper1(root.left,data);
-			root.left = node;			
-		}else{
-			node = insertHelper1(root.right, data);
-			root.right = node;
-		}return root;
-	}
 
-	public void insert(int data) {
-		this.root = insertHelper1(this.root,data);
-	}
-	
 
 	private static BinaryTreeNode<Integer> removeHelper(	BinaryTreeNode<Integer> root,
 														 	BinaryTreeNode<Integer> preRoot, int data){
@@ -124,36 +101,6 @@ class BinarySearchTree {
 		if(preRoot==null) return root;
 		else if(root==null);
 		else if(preRoot.data>=root.data) preRoot.left = root;
-		else preRoot.right = root;
-		return preRoot; 
-	}
-private static BinaryTreeNode<Integer> removeHelper(	BinaryTreeNode<Integer> root,
-														 	BinaryTreeNode<Integer> preRoot, int data){
-		// here i am replacing the data node with inorder successor from inorder successor and inorder predecessor.
-		if(root==null) return null;
-		BinaryTreeNode<Integer> temp=null, tempRoot=null, removeNode = root;
-		if(root.data<data) root = removeHelper(root.right,root,data);
-		else if(root.data>data) root = removeHelper(root.left,root,data);
-		else{
-			if(root.right==null) root = root.left;
-			else if(root.right.left==null){
-				root.right.left = root.left;
-				root = root.right;
-			}else{
-				temp = root.right;
-				tempRoot = temp.left;
-				while(tempRoot.left!=null){
-					temp = tempRoot;
-					tempRoot = tempRoot.left;
-				}
-				temp.left = tempRoot.right;
-				tempRoot.left = root.left;
-				tempRoot.right = root.right;
-				root = tempRoot;
-			}
-		}
-		if(preRoot==null) return root;
-		else if(preRoot.data>=removeNode.data) preRoot.left = root;
 		else preRoot.right = root;
 		return preRoot; 
 	}
@@ -204,7 +151,7 @@ private static BinaryTreeNode<Integer> removeHelper(	BinaryTreeNode<Integer> roo
 	public void printTree() {
 		printHelper1(this.root);
 		// System.out.println();
-		// printHelper1(this.root);
+		// printHelper(this.root);
 	}
 	
 

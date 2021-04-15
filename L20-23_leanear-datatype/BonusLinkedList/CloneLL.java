@@ -182,7 +182,6 @@ public class CloneLL{
 	// //**********following code is giving some problem.****
 		Node<Integer> newHead = new Node<>(head.data.intValue()),
 								cloneTemp = newHead, temp = head.next;
-		cloneIndex = newHead;
 		while(temp!=null){
 			cloneTemp.next = new Node<Integer>(temp.data);
 			temp = temp.next;
@@ -205,17 +204,17 @@ public class CloneLL{
 
 
 
-// // step 2  create back and forth relations in b/w index, indexcloned, index.next.
-//         index = head;
-//         cloneIndex = newHead;
-// 		while(index!=null){
-// 			temp = index.next;
-// 			cloneTemp = cloneIndex.next;
-// 			index.next = cloneIndex;
-// 			cloneIndex.next = temp;
-// 			index = temp;
-// 			cloneIndex = cloneTemp;
-// 		}
+// step 2  create back and forth relations in b/w index, indexcloned, index.next.
+        index = head;
+        cloneIndex = newHead;
+		while(index!=null){
+			temp = index.next;
+			cloneTemp = cloneIndex.next;
+			index.next = cloneIndex;
+			cloneIndex.next = temp;
+			index = temp;
+			cloneIndex = cloneTemp;
+		}
 // // //step1+step2 = crete and place b/t given list.
 // // 		Node<Integer> temp = head, cloneTemp=null, newHead=null;
 // // 		index = head;
@@ -226,26 +225,26 @@ public class CloneLL{
 // // 			index.next = cloneTemp;
 // // 			index = cloneTemp.next;
 // // 		}
-// // creting arbitary relations.
-// 		index = head;
-// 		while(index!=null){
-// 			if(index.arb!=null) index.next.arb = index.arb.next;
-// 			index = index.next.next;
-// 		}
-// // restore both the lists
-// 		index = head;
-//         // temp = head.next;
-// 		while(index!=null){
-// 			temp = index.next.next;
-// 			if(index.next.next!=null){
-// 				index.next.next = temp.next;
-// 				index.next = temp;
+// creting arbitary relations.
+		index = head;
+		while(index!=null){
+			if(index.arb!=null) index.next.arb = index.arb.next;
+			index = index.next.next;
+		}
+// restore both the lists
+		index = head;
+        // temp = head.next;
+		while(index!=null){
+			temp = index.next.next;
+			if(index.next.next!=null){
+				index.next.next = temp.next;
+				index.next = temp;
                 
-// 			}else{
-// 				index.next = null;
-// 			}
-// 			index = temp;
-// 		}
+			}else{
+				index.next = null;
+			}
+			index = temp;
+		}
 		return head;
 	}
 	public static void main(String...args){

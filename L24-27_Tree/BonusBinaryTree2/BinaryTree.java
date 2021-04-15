@@ -1,17 +1,6 @@
 // this class used to create and print the trees.
 import java.util.Queue;
 import java.util.LinkedList;
-class BinaryTreeNode<T> {
-	T data;
-	BinaryTreeNode<T> left;
-	BinaryTreeNode<T> right;
-
-	public BinaryTreeNode(T data) {
-		this.data = data;
-		this.left = null;
-		this.right = null;
-	}
-}
 class BinaryTree{
 	BinaryTreeNode<Integer> root;
 	Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
@@ -21,6 +10,7 @@ class BinaryTree{
 		queue=null;
 
 	}
+	BinaryTree(){}
 	BinaryTreeNode<Integer> createTree(BinaryTreeNode<Integer> root, Queue<BinaryTreeNode<Integer>> queue,int[] arr, int index){
 		BinaryTreeNode<Integer> leftChild, rightChild;
 		// System.out.println(index);
@@ -75,4 +65,14 @@ class BinaryTree{
 		System.out.println();
 		if(!queue.isEmpty()) printDetail(queue.poll(),queue);
 	}
+
+	// this will print actual tree on the console.....
+	// void printTree(){
+	// 	this.queue = new LinkedList<>();
+	// 	printTree(this.root,this.queue);
+
+	// }
+	// void pri
 }
+
+   
