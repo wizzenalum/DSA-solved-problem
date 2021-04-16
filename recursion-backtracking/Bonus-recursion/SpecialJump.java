@@ -56,7 +56,7 @@ public class SpecialJump{
 
 	// method 1 this is working great for the problem given.	
 	public static void minJumpCount(int position, int steps,int[] terminate){	
-		System.out.println(position+" "+steps+" "+ terminate[0]);
+		// System.out.println(position+" "+steps+" "+ terminate[0]);
 		if(terminate[0]!=0){
 			if(steps>terminate[0]) return;
 		}
@@ -75,13 +75,14 @@ public class SpecialJump{
 	// method 1
 		// Scanner scan = new Scanner(System.in);
 		// int position = scan.nextInt();
-		// int position = 2;
-		// int[] terminate = {0,position};
-		// minJumpCount(position,0,terminate);
-		// System.out.println(terminate[0]);
+		int position = 2;
+		int[] terminate = {0,position};
+		minJumpCount(position,0,terminate);
+		System.out.println(terminate[0]);
+		System.out.println();
 
 	// method2 by class
-		int position = 2;
+		// int position = 2;
 		Ways way = new Ways(position,0);
 		way.move();
 

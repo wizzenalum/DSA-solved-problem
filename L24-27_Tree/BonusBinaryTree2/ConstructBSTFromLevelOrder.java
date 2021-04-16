@@ -20,16 +20,10 @@ class BinaryTreeNode<T> {
 	}
 }
 
-class LinkedListNode<T>{
-	T data;
-	LinkedListNode<T> next;
-	LinkedListNode(T data){
-		this.data = data;
-		this.next = null;
-	}
-}
+
 
 public class ConstructBSTFromLevelOrder{
+    // method 1 i am checking the position by bye the superRoot nodes.
 	public static BinaryTreeNode<Integer> constructBST(int[] levelorder, int n) {
 		if(n<=0) return null;
 		int i = 2, len = levelorder.length;
@@ -63,11 +57,6 @@ public class ConstructBSTFromLevelOrder{
         	}
 
         }
-
-		// BinaryTree tree = new BinaryTree(); 
-		// tree.root = treeRoot;
-		// tree.printDetail();
-		// System.out.println(i+" "+root.data+" "+superRoot.data);
         // upto now height of tree is 2 and nodes or i can be 2 or three. and further nodes will br added
         // as following for four conditions which depends upon root and super root. and super root will select by root.
 
@@ -107,11 +96,44 @@ public class ConstructBSTFromLevelOrder{
         		root = rootQueue.poll();
         		superRoot = superQueue.poll();
         	}
-        }
-        // System.out.println(superRoot.data+" "+root.data+" "+i+" "+rootQueue.isEmpty());
-        return treeRoot;
-
+        } return treeRoot;
     }
+    // method 2 in this method i will maintain the minimum and maximum posible values for each root.
+    static class Mmr{
+    int min;
+    int max;
+    BinaryTreeNode<Integer> root;
+
+    Mmr(int min, int max, BinaryTreeNode<Integer> root){
+        this.min = min;
+        this.max = max;
+        this.root = root;
+    }
+}
+    public static BinaryTreeNode<Integer> constructBST1(int[] levelorder, int n) {
+        if(n<=0) return null; 
+        Queue<Mmr> queue = new LinkedList<>();
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(levelorder[0]);
+        Mmr mmr = new Mmr(Integer.MIN_VALUE, Integer.MAX_VALUE, root), temp;
+        for(int i = 1; i<n;){
+            // System.out.println(i);
+            if(levelorder[i]<=mmr.root.data && levelorder[i]>=mmr.min){
+                temp = new Mmr(mmr.min, mmr.root.data, new BinaryTreeNode<Integer>(levelorder[i]));
+                mmr.root.left = temp.root;
+                queue.add(temp);
+                i++;
+            }
+            if(levelorder[i]>mmr.root.data && levelorder[i]<=mmr.max){
+                temp = new Mmr(mmr.root.data, mmr.max, new BinaryTreeNode<Integer>(levelorder[i]));
+                mmr.root.right = temp.root;
+                queue.add(temp);
+                i++; 
+            }
+            mmr = queue.poll();
+        }
+        return root;
+    }
+
 	public static void main(String[] args) {
 		//creting tree by level wise input
 		/* following is te tree which will be printed by deferent ways
@@ -126,8 +148,11 @@ public class ConstructBSTFromLevelOrder{
 		int[] arr = {4,1,7,0,2,5,8,3,6,9};
 
 		BinaryTree tree = new BinaryTree(); // accessed from an another class call ed BinaryTree
-		tree.root = constructBST(arr,arr.length);
+        tree.root = constructBST(arr,arr.length);
 		tree.printDetail();
+        System.out.println();
+		tree.root = constructBST1(arr,arr.length);
+        tree.printDetail();
 	
 		
 

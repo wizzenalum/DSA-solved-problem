@@ -72,7 +72,14 @@ class BinaryTree{
 	// 	printTree(this.root,this.queue);
 
 	// }
-	// void pri
-}
-
-   
+	public int height(){
+		return height(this.root);
+	} 
+	private int height(BinaryTreeNode<Integer> root){
+		if(root==null) return 0;
+		int left = height(root.left);
+		int right = height(root.right);
+		return left>right?left+1:right+1;
+	}
+	private void 	
+}  

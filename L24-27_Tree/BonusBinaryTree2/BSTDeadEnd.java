@@ -84,7 +84,8 @@ public class BSTDeadEnd{
 		BinaryTree tree = new BinaryTree(arr); // accessed from an another class call ed BinaryTree
 		tree.printDetail();
 		System.out.println(deadEnd1(tree.root));
-		
+		System.out.println(tree.height());
+		BinaryTreeNode<Integer>[] j = {tree.root};
 		
 
 	}	

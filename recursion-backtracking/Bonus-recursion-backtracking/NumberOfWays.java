@@ -34,15 +34,15 @@ class NumberOfWays{
 
 	
 	public static int numberOfWaysHelper(int[] input, int sum, int presum, int index,int count){
+		// presum is the value for each individual equations, index indicate the current number,
+		// count is total number of presum that are equal to sum.
 		if(index>=input.length){
 			if(sum==presum) return count+1;
 			return count;
 		}
 		int digit = input[index];
-		if(digit!=0){
-			count = numberOfWaysHelper(input,sum,presum+digit,index+1,count);
-			count = numberOfWaysHelper(input,sum,presum-digit,index+1,count);
-		}
+		count = numberOfWaysHelper(input,sum,presum+digit,index+1,count);
+		count = numberOfWaysHelper(input,sum,presum-digit,index+1,count);
 		input[index] = 0;
 		count = numberOfWaysHelper(input,sum,presum,index+1,count);
 		input[index] = digit;
@@ -51,11 +51,13 @@ class NumberOfWays{
 	
 	
 	public static int numberOfWays(int[] input, int sum) {
-		return numberOfWaysHelper(input,sum,0,0,0);
+		int ways = numberOfWaysHelper(input,sum,0,0,0);
+		return sum==0?ways-1:ways;// this is because nul null, null, null case can be remove.
 	}	
 	public static void main(String[] args) {
-		int[] input = {-1, 9, 8, -3, 4};
-		System.out.println(numberOfWays(input,5));
+		// int[] input = {-1, 9, 8, -3, 4};
+		int[] input = {0,0};
+		System.out.println(numberOfWays(input,0));
 
 	}
 }
