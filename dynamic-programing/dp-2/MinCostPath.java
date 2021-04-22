@@ -1,7 +1,16 @@
 /*############################################################################
-						    
- 
+				 Min Cost Path Problem
 
+	An integer matrix of size (M x N) has been given. Find out the minimum 
+	cost to reach from the cell (0, 0) to (M - 1, N - 1).
+	From a cell (i, j), you can move in three directions:
+
+		1. ((i + 1),  j) which is, "down"
+		2. (i, (j + 1)) which is, "to the right"
+		3. ((i+1), (j+1)) which is, "to the diagonal"
+
+	The cost of a path is defined as the sum of each cell's values through 
+	which the route passes.
 				completed 1,2,3 true
 			
 #############################################################################*/
@@ -66,7 +75,7 @@ public class MinCostPath{
 
 
 		while(m>=0&&n>=0){
-			System.out.println("ii");
+			// System.out.println("ii");
 			// caculating min cost and storing it to mattrix for m,n cell.
 			minCost = Integer.MAX_VALUE;
 			if(m<maxM) minCost = storage[m+1][n];
@@ -79,7 +88,6 @@ public class MinCostPath{
 				minCost = temp>minCost?minCost:temp;
 			}
 			storage[m][n] = minCost+input[m][n];
-
 			// setting m and n for next ittration.
 			// here toggle can have three value 0,1,2
 			if(toggle==0){
