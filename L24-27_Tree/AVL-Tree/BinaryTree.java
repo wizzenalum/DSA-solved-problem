@@ -1,19 +1,6 @@
 // this class used to create and print the trees.
 import java.util.Queue;
 import java.util.LinkedList;
-// class BinaryTreeNode<T> {
-// 	T data;
-// 	BinaryTreeNode<T> left;
-// 	BinaryTreeNode<T> right;
-// 	BinaryTreeNode<T> random;
-
-// 	public BinaryTreeNode(T data) {
-// 		this.data = data;
-// 		this.left = null;
-// 		this.right = null;
-// 		this.random = null;
-// 	}
-// }
 class BinaryTree{
 	BinaryTreeNode<Integer> root;
 	Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
@@ -21,10 +8,9 @@ class BinaryTree{
 	BinaryTree(int[] arr){
 		this.root = this.createTree(this.root,this.queue,arr,0);
 		queue=null;
-	}
-	BinaryTree(){
-	}
 
+	}
+	BinaryTree(){}
 	BinaryTreeNode<Integer> createTree(BinaryTreeNode<Integer> root, Queue<BinaryTreeNode<Integer>> queue,int[] arr, int index){
 		BinaryTreeNode<Integer> leftChild, rightChild;
 		// System.out.println(index);
@@ -79,4 +65,21 @@ class BinaryTree{
 		System.out.println();
 		if(!queue.isEmpty()) printDetail(queue.poll(),queue);
 	}
-}
+
+	// this will print actual tree on the console.....
+	// void printTree(){
+	// 	this.queue = new LinkedList<>();
+	// 	printTree(this.root,this.queue);
+
+	// }
+	// public int height(){
+	// 	return height(this.root);
+	// } 
+	// private int height(BinaryTreeNode<Integer> root){
+	// 	if(root==null) return 0;
+	// 	int left = height(root.left);
+	// 	int right = height(root.right);
+	// 	return left>right?left+1:right+1;
+	// }
+	// private void 	
+}  
