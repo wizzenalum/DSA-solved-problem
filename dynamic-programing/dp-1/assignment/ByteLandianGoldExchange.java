@@ -28,6 +28,7 @@
 #############################################################################*/
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 public class ByteLandianGoldExchange{
 // step 1  recursion
 	public static int bytelandian(int n) {
@@ -79,19 +80,20 @@ public class ByteLandianGoldExchange{
 		return storage[(int)(n/unitStorage)][(int)(n%unitStorage)];	
 	}
 // 4 iterative dp with hash map
-	// public static int bytelandianIterDP(int n){
-	// 	if(n<4) return n;
-	// 	int[] storage = new int[n+1];
-	// 	for(int i = 0;i<4;i++) storage[i] = i;
-	// 	int i = 4, maxCoin=0;
-	// 	while(i<=n){
-	// 		maxCoin = storage[i/2]+storage[i/3]+storage[i/4];
-	// 		maxCoin = i>maxCoin?i:maxCoin;
-	// 		storage[i] = maxCoin;
-	// 		i++;
-	// 	}
-	// 	return storage[n];	
-	// }
+	public static long bytelandianIterDpHash(long n, HashMap<Long, Long> memo) {
+    	if(n<4) return n;
+		for(Long i = 0l;i<4l;i++) memo.put(i,i);
+		Long i = 4l, maxCoin=0l;
+		while(i<=n){
+			maxCoin = memo.get(i/2l)+memo.get(i/3l)+memo.get(i/4l);
+			maxCoin = i>maxCoin?i:maxCoin;
+			memo.put(i,maxCoin);
+			i++;
+		}
+		return memo.get(n);	
+
+	}
+
 	public static void main(String[] args){
 	// 	Scanner scan =  new Scanner(System.in);
 		// int n = scan.nextInt();
@@ -101,11 +103,11 @@ public class ByteLandianGoldExchange{
 	// memoization approach.
 		int[] arr = new int[n+1];
 		// System.out.println(bytelandianMemo(n,arr));
-	// iterative dp appraoch
-		System.out.println(bytelandianIterDP(n));
-		// iterative dp for long input
-		long m = 1232;
-		System.out.println(bytelandianIterDP2(m));
+	// iterative d		// iterative dp for long input
+		long m = 1232000000;
+		// System.out.println(bytelandianIterDP2(m));
+		HashMap<Long, Long> memo = new HashMap<Long,Long>();
+		System.out.println(bytelandianIterDpHash(m,memo));
 	
 	}
 
