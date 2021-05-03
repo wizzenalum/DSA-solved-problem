@@ -94,6 +94,24 @@ public class ByteLandianGoldExchange{
 
 	}
 
+// some time iterative functions are not good too.
+// as here reange is too much to we need to look in recursion.
+// *********  problem was that i was trying to store all the value of n  even i never gonna
+	// need them but by recursion that problem will also gona solve.
+
+	public static long bytelandianIterDpHashRecur(long n, HashMap<Long, Long> memo) {
+    	if(n<4) return n;
+    	if(memo.containsKey(n)) return memo.get(n);
+		long maxCoin = 	bytelandianIterDpHashRecur(n/2l,memo)+
+						bytelandianIterDpHashRecur(n/3l,memo)+
+						bytelandianIterDpHashRecur(n/4l,memo);
+		maxCoin = maxCoin>n?maxCoin:n;
+		memo.put(n,maxCoin);
+		return maxCoin;	
+
+	}
+
+
 	public static void main(String[] args){
 	// 	Scanner scan =  new Scanner(System.in);
 		// int n = scan.nextInt();
@@ -107,7 +125,10 @@ public class ByteLandianGoldExchange{
 		long m = 1232000000;
 		// System.out.println(bytelandianIterDP2(m));
 		HashMap<Long, Long> memo = new HashMap<Long,Long>();
-		System.out.println(bytelandianIterDpHash(m,memo));
+
+		// System.out.println(bytelandianIterDpHash(m,memo));
+		System.out.println(bytelandianIterDpHashRecur(m,memo));
+
 	
 	}
 

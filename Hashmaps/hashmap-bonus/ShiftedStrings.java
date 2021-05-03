@@ -50,11 +50,14 @@ import java.util.ArrayList;
 		}
 	}
 public class ShiftedStrings{
+  // method 1
+
 	public static void grouping(String[] arr, int n) {
 		HashMap<Integer,Value> map  = new HashMap<Integer,Value>();
 		Value value  = null, rootValue = null, temp = null;
 		int key = 0;
 		boolean stringIsNew = true, stringForSameGroup = true;
+
 		for(String str:arr){
 			key = str.length();
 			if(!map.containsKey(key)){
@@ -68,7 +71,11 @@ public class ShiftedStrings{
 				while(temp!=null){
 					stringForSameGroup = true;
 					for(int i = 1; i<key;i++){
-						if(temp.str.charAt(0)-str.charAt(0)!=temp.str.charAt(i)-str.charAt(i)){
+
+						// if(temp.str.charAt(0)-str.charAt(0)!=temp.str.charAt(i)-str.charAt(i)){ // error code read comment before main
+						if((temp.str.charAt(0)-str.charAt(0)+26)%26!=(temp.str.charAt(i)-str.charAt(i)+26)%26){
+
+
 							stringForSameGroup = false;
 							break;
 						}
@@ -102,11 +109,51 @@ public class ShiftedStrings{
 		}		
 	}
 
+// mehtod 2 
+
+	// public static String calculateKey(String str){
+	// 	String send = "";
+	// 	for(int i=1;i<str.length();i++){
+	// 		// send +=" "+(str.charAt(i)-str.charAt(i-1));// error code read comment before main
+	// 		send +=" "+((str.charAt(i)-str.charAt(i-1)+26)%26);
+	// 	}
+	// 	return send;
+	// }
+	
+	// public static void grouping(String[] arr, int n) {
+	// 	HashMap<String,ArrayList<String>> map  = new HashMap<>();
+	// 	String str = "", key = "";
+	// 	for(int i =0; i<n;i++){
+	// 		str = arr[i];
+	// 		key = calculateKey(str);
+	// 		if(!map.containsKey(key)){
+	// 			map.put(key,new ArrayList<String>());
+	// 			map.get(key).add(str);				
+	// 		}
+	// 		else{
+	// 			map.get(key).add(str);				
+	// 		}
+	// 	}
+	// 	// System.out.println(map.keySet());
+	// 	for(String ele:map.keySet()){
+	// 		ArrayList<String> group = map.get(ele);
+	// 		for(int i = 0; i<group.size();i++){
+	// 			System.out.print(group.get(i)+" ");
+	// 		}
+	// 		System.out.println();
+	// 	}
+		
+	// }
+// both methods are right but they failing at same case {"za","ab"} but by changing single line it can be rectify 
+	// so i am doing in the code.
 	public static void main(String[] args) {
-		String[] arr = {"asd ","bte", "ak", "dn", "a", "v", "b", 
-						"n", "qwer", "rxfs", "iuy", "poi", "iuy",
-						 "poi", "qwe", "asd", };
+		// String[] arr = {"asd ","bte", "ak", "dn", "a", "v", "b", 
+		// 				"n", "qwer", "rxfs", "iuy", "poi", "iuy",
+		// 				 "poi", "qwe", "asd"};
+		String[] arr = {"za","ab"};
 		grouping(arr,arr.length);
+		// System.out.println(calculateKey("abcb"));
+		
 
 		
 	}	
