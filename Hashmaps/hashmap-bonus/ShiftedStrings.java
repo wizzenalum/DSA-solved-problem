@@ -50,7 +50,8 @@ import java.util.ArrayList;
 		}
 	}
 public class ShiftedStrings{
-	// method 1 
+  // method 1
+
 	public static void grouping(String[] arr, int n) {
 		HashMap<Integer,Value> map  = new HashMap<Integer,Value>();
 		Value value  = null, rootValue = null, temp = null;
@@ -70,8 +71,10 @@ public class ShiftedStrings{
 				while(temp!=null){
 					stringForSameGroup = true;
 					for(int i = 1; i<key;i++){
+
 						// if(temp.str.charAt(0)-str.charAt(0)!=temp.str.charAt(i)-str.charAt(i)){ // error code read comment before main
 						if((temp.str.charAt(0)-str.charAt(0)+26)%26!=(temp.str.charAt(i)-str.charAt(i)+26)%26){
+
 
 							stringForSameGroup = false;
 							break;
@@ -105,6 +108,7 @@ public class ShiftedStrings{
 			}
 		}		
 	}
+
 // mehtod 2 
 
 	// public static String calculateKey(String str){
@@ -150,6 +154,7 @@ public class ShiftedStrings{
 		grouping(arr,arr.length);
 		// System.out.println(calculateKey("abcb"));
 		
+
 		
 	}	
 }

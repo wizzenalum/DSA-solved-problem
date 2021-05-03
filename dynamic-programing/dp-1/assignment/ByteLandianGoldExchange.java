@@ -93,6 +93,7 @@ public class ByteLandianGoldExchange{
 		return memo.get(n);	
 
 	}
+
 // some time iterative functions are not good too.
 // as here reange is too much to we need to look in recursion.
 // *********  problem was that i was trying to store all the value of n  even i never gonna
@@ -110,6 +111,7 @@ public class ByteLandianGoldExchange{
 
 	}
 
+
 	public static void main(String[] args){
 	// 	Scanner scan =  new Scanner(System.in);
 		// int n = scan.nextInt();
@@ -123,8 +125,10 @@ public class ByteLandianGoldExchange{
 		long m = 1232000000;
 		// System.out.println(bytelandianIterDP2(m));
 		HashMap<Long, Long> memo = new HashMap<Long,Long>();
+
 		// System.out.println(bytelandianIterDpHash(m,memo));
 		System.out.println(bytelandianIterDpHashRecur(m,memo));
+
 	
 	}
 
