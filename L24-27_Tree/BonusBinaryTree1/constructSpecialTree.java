@@ -23,7 +23,6 @@ class BinaryTreeNode<T> {
 }
 
 public class constructSpecialTree{
-	
     public static BinaryTreeNode<Integer> specialtree(int[] preor, char[] preorLN, int n) {
     	if(n==0) return null;
     	Stack<BinaryTreeNode<Integer>> st = new Stack<>();
@@ -53,6 +52,30 @@ public class constructSpecialTree{
     	return root;
     }
 
+    // using recursion
+    public static int i=0;
+    public  static BinaryTreeNode<Integer> specialtree(int[] preor,char[] preorLN,int n)
+     {
+		// System.out.println(i);
+     	if(i==n) {
+			return null;
+		}
+		
+		BinaryTreeNode<Integer> root= new BinaryTreeNode<Integer>(preor[i]);
+		
+		if(preorLN[i]=='N') {
+		// i[0]++;
+			i++;
+			// System.out.println("in1");
+			root.left=specialtree(preor,preorLN, n);
+			root.right=specialtree(preor,preorLN, n);
+			// System.out.println("in2"+ root.right);
+		}else i++;
+		// i++;		
+		// i[0]++;
+         
+		return root;
+	}
 	public static void main(String[] args) {
 		//creting tree by level wise input
 		/* following is te tree which will be printed by deferent ways
@@ -64,9 +87,12 @@ public class constructSpecialTree{
 		*/
 		int[] arr = {1,2,4,5,3,7};
 		char[] arr2 = {'N','N','L','L','N','L'};
+		// int[] arr = {10,30,20};
+		// char[] arr2 = {'N','L','L'};
 
 		BinaryTree tree = new BinaryTree();
-		tree.root = specialtree(arr, arr2, 6);
+		// int[] i = {0};
+		tree.root = specialtree(arr, arr2, arr.length);
 		tree.printDetail();
 		// postOrder(tree.root);
 	}

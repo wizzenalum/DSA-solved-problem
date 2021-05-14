@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Queue;
+import java.util.LinkedList;
 public class BuyTheTicket{
 
 
@@ -66,8 +68,43 @@ public class BuyTheTicket{
 	// 	}
 	// }
 
-// now i will use hash map to jump to next person without itterating over whole array.
-	public static int buyTicket(int input[], int k) {
+// i will use a queue as discussed in the video
+	public static int buyTicket1(int input[], int k) {
+		PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(10, new Comparator<Integer>() {
+		    @Override
+		    public int compare(Integer a, Integer b) {
+		        return b - a; 
+		    }
+		});
+
+		Queue<Integer> indexQueue = new LinkedList<Integer>();
+		// creating the max heap so i can know the max value;
+		// and index Queue to know the index;
+		for(int i =0; i<input.length;i++){
+			maxHeap.add(input[i]);
+			indexQueue.add(i);
+		}
+		// lets find the time taken by the ticket collector
+		int time=0, temp = 0;
+		while(true){
+			// System.out.println("loop  ");
+			if(maxHeap.size()==0){
+				System.out.println("something wrong with you implementation");
+				return -1;
+			}
+			if(input[indexQueue.peek()]<maxHeap.peek()){
+				indexQueue.add(indexQueue.poll());
+			}
+			else if(input[indexQueue.peek()]==maxHeap.peek()){
+				if(indexQueue.peek() == k) return time+1;
+				maxHeap.poll();
+				indexQueue.poll();
+				time++;
+			}
+		}
+	} 
+// now i will use hash map to jump to next person without itterating over whole array. it will save more time then given solution.
+	public static int buyTicket2(int input[], int k) {
 		PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(10, new Comparator<Integer>() {
 		    @Override
 		    public int compare(Integer a, Integer b) {
@@ -127,6 +164,7 @@ public class BuyTheTicket{
 		// int[] arr = {5,4,3,8,7,6,2,1};
 		int[] arr = {2,3,2,2,4};  // k = 3,  ans = 4;
 		
-		System.out.println(buyTicket(arr,3));		
+		// System.out.println(buyTicket2(arr,3));		
+		System.out.println(buyTicket1(arr,3));		
 	}
 }
