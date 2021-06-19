@@ -7,7 +7,6 @@
 			mark them visited as their connected vertex weight is updated to
 			least possible weight.
 #############################################################################*/
-import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;

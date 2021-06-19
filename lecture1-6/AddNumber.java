@@ -10,5 +10,6 @@ public class AddNumber{
 		char ch = 'a';       //store character sigle quates for character double quests for string
 		boolean bi = false;
 		System.out.println(c+d+f);
+		// System.out.println((int)'a'+" "+(int)'z'+" "+(int)'A'+" "+(int)'Z');
 	}
 }

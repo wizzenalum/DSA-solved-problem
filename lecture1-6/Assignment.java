@@ -239,7 +239,7 @@ public class Assignment{
 			decreasing = false;
 		}
 		else{  // why else doesent worked here.
-			for (i=i;preNumber<cNumber&&i<=n;i++){
+			for (;preNumber<cNumber&&i<=n;i++){
 				
 				preNumber=cNumber;
 				cNumber=scan.nextInt();

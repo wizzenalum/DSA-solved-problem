@@ -28,16 +28,20 @@
 		20 25
 
 
-				completed = false
+				completed = true
 
 
 #############################################################################*/
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Scanner;
-
+import java.util.Queue;
 public class FindKClosest{
 
 	public static int compare(int a, int b){
@@ -93,62 +97,190 @@ public class FindKClosest{
 			downHipify(arr,0,i);
 		}
 	}
-	public static void kClosest(int[] arr,int[] arr2,int k, int x){
-		HashMap<Integer,ArrayList> map = new HashMap<>();
-		// and index Queue to know the index;
+// method 1
+	public static void kClosest(int[] arr,int k, int x){
+		// time O(nlogn) space O(n);
+		// System.out.println(Arrays.toString(arr)+" "+k+" "+x);
+		int n = arr.length;
+		// creating sorted array first
+		int[] arr2 = new int[n];
+
+		for(int i = 0; i<n;i++){
+			arr2[i] = arr[i];
+		}
+		heapSort(arr2);
+		// System.out.println(Arrays.toString(arr2));
+		
+		// Hashmap of queues for storing the indecies of different valsue;
+		HashMap<Integer,Queue<Integer>> map = new HashMap<>();
 		for(int i =0;i<arr.length;i++){
 			if(!map.containsKey(arr[i])){
-				map.put(arr[i], new ArrayList<Integer>());
+				map.put(arr[i], new LinkedList<Integer>());
 			}
 			map.get(arr[i]).add(i);
 		}
-		// lets print the k closest element to the x
-		int temp = 0;
-		int i = 0, j = 0;
-		while(arr2[i]>=x && i<arr.length) i++;
-		j = i+1;
-		while(true){
-			if(x-arr2[i]>arr2[j]-x){
 
+		for (int i : map.keySet()) {
+			Queue<Integer> list = map.get(i);
+			// System.out.print(i+" (");
+			for (int j = 0; j < list.size(); j++) {
+				int inde = list.poll();
+				// System.out.print(inde+", ");
+				list.add(inde);
 			}
-			if(maxHeap.size()==0){
-				System.out.println("something wrong with you implementation");
-				return -1;
+			// System.out.println(")");
+		}
+
+		// lets make array of k elements.
+		int i = 0, j = 0, indexK = 0;
+		int[] kElements = new int[k];
+		while(arr2[j]<=x && j<n) j++;
+		// System.out.println(i+" i and j "+j);
+		i=j-1;
+		// System.out.println(i+" i and j "+j);
+		while(indexK<k){
+			if(i<0 || j>=n) break;
+			else if(x-arr2[i]>arr2[j]-x){
+				kElements[indexK] = arr2[j];
+				j++;
 			}
-			if(input[indexQueue.peek()]<maxHeap.peek()){
-				indexQueue.add(indexQueue.poll());
+			else if(x-arr2[i]<arr2[j]-x){
+				kElements[indexK] = arr2[i];
+				i--;
 			}
-			else if(input[indexQueue.peek()]==maxHeap.peek()){
-				if(indexQueue.peek() == k) return time+1;
-				maxHeap.poll();
-				indexQueue.poll();
-				time++;
+			else if(x-arr2[i]==arr2[j]-x){
+				if(arr2[i] == arr2[j]){
+					kElements[indexK] = arr2[i];
+					i--;
+				}else{
+					if(map.get(arr2[i]).peek()<map.get(arr2[j]).peek()){
+						map.get(arr2[i]).poll();
+						kElements[indexK] = arr2[i];
+						i--;
+					}else{
+						map.get(arr2[j]).poll();
+						kElements[indexK] = arr2[j];
+						j++;
+					}
+				}
 			}
+			indexK++;
+		}
+		while(indexK<k && i<0 && j<n){
+			kElements[indexK] = arr2[j];
+			j++;
+			indexK++;
+		}
+		while(indexK<k && j>=n && i>=0){
+			kElements[indexK] = arr2[i];
+			i--;
+			indexK++;
+		}
+
+		// sorting the ouput array;
+		heapSort(kElements);
+		for (int l : kElements) {
+			System.out.print(l+" ");
 		}
 	}
 
 
-	public static void main(String[] args) {
-		// Scanner scan = new Scanner(System.in);
-		// int n = scan.nextInt();
-		// int[] arr = new int[n];
-		// int[] arr2 = new int[n];
-		// for(int i = 0; i<n;i++){
-		// 	arr[i] = scan.nextInt();
-			// arr2[i] = arr[i];
-		// }
-		// heapSort(arr2);
-		// int x = scan.nextInt();
-		// int k = scan.nextInt();
-		// System.out.println("24 20");
-		int[] arr = {10,15,20,25,30};
-		int[] arr2 = {10,15,20,25,30};
-		// int[] arr = {19,25,24,25,19,20,29};
-		// int[] arr2 = {19,25,24,25,19,20,29};
-		// int[] arr = {1,2,3,4,5,6,7,8};
-		heapSort(arr2);
+// method 2 by finding difference
+	public static void swap(Pair[] arr, int a, int b) {
+		Pair swap = arr[a];
+		arr[a] = arr[b];
+		arr[b] = swap;
+	}
+	public static void upHippify(Pair[] arr, int index) {
+		int parent = 0;
+		while(index>0){
+			parent = (index-1)/2;
+			if(arr[parent].diff<arr[index].diff) swap(arr, index, parent);
+			index = parent;
+		}
+	}
+	public static void downHipify(Pair[] arr, int end) {
+		int child1 = 0, child2 = 0, temp = 0;
+		for (int i = 0; i < end;) {
+			child1 = i*2+1;
+			child2 = child1+1;
+			if(child1>=end||(child2>=end && arr[child1].diff<=arr[i].diff) || 
+				(arr[child1].diff<=arr[i].diff && arr[child2].diff<=arr[i].diff)) return;
+			if(child2>=end){
+				swap(arr,i,child1);
+				return;
+			}
+			temp = child2;
+			if(arr[child2].diff>arr[child1].diff){
+				child2= child1;
+				child1 = temp; 
+			}
+			swap(arr, child1,i);
+			i = child1;
+		}
+	}
+	static class Pair{
+		int index;
+		int diff;
+		Pair(int index, int diff){
+			this.index = index;
+			this.diff = diff;
+		}
+	}
+	public static void kClosest1(int[] arr,int k, int x){
+		int n = arr.length;
+		Pair[] arr2 = new Pair[n];
+		for (int i = 0; i < n; i++) {
+			arr2[i] = new Pair(i,Math.abs(arr[i]-x));
+		}
+		// now make a heap of k starting elements from the difference.
+		for (int i = 1; i < k; i++) {
+			upHippify(arr2, i);
+		}
+		// for (Pair pair : arr2) System.out.print("("+pair.index+","+pair.diff+")  ");
+		// System.out.println();
+		// now making that heap of k elements of minimum difference.
+		for (int i = k; i < arr2.length; i++) {
+			if(arr2[i].diff<arr2[0].diff){
+				swap(arr2,0,i);
+				for (int j = 0; j <k; j++) System.out.print("("+arr2[j].index+","+arr2[j].diff+")");
+				System.out.println();
+				downHipify(arr2, k);
+				for (int j = 0; j <k; j++) System.out.print("("+arr2[j].index+","+arr2[j].diff+")");
+				System.out.println();
+			}
+		}
+		// now sort the heap and print it.
+		int[] kElements = new int[k];
+		for(int i = k-1;i>=0;i-- ){
+			kElements[k-1-i] = arr[arr2[i].index]; 
+		}
+		heapSort(kElements);
+		for (int i = 0; i < kElements.length; i++) {
+			System.out.print(kElements[i]+" ");
+		}
+		
+	}
 
-		kClosest(arr,arr2);
-		// System.out.println(Arrays.toString(arr));
+
+	public static void main(String[] args) throws NumberFormatException,IOException {
+		FileReader is = new FileReader("/home/dipak/Bit_by_bit/DSA.learn/careercamp/priority-queue/priority-bonus/sampleTest.txt");
+		// InputStreamReader is = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(is);
+		int n = Integer.parseInt(br.readLine().trim());
+		int[] arr = new int[n];
+
+		String[] str = br.readLine().trim().split(" ");
+		String[] str2 = br.readLine().trim().split(" ");
+		br.close();
+		is.close();
+		for (int i = 0; i < n; i++) {
+			arr[i] = Integer.parseInt(str[i]);
+		} 
+		int x = Integer.parseInt(str2[0]);
+		int k = Integer.parseInt(str2[1]);
+		// System.out.println(n+" "+Arrays.toString(arr)+" "+k+" "+x);
+		// kClosest(arr, k, x);
+		kClosest1(arr, k, x);
 	}
 }

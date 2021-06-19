@@ -58,30 +58,64 @@ public class CollegeCourses {
         return false;
     }
 // with adjList
-    private static boolean isSubGraphCyclic(ArrayList<ArrayList<Integer>> adjList,int current, boolean[] visited, boolean[] localVisited) {
+    // private static boolean isSubGraphCyclic(ArrayList<ArrayList<Integer>> adjList,int current, boolean[] visited, boolean[] localVisited) {
+    //     // System.out.println(current+" ");
+    //     ArrayList<Integer> list = adjList.get(current);
+    //     if(list==null) return false;
+    //     //way1
+    //     if(localVisited[current]){
+    //          return true; 
+    //     }// if(localVisited[current]){
+    //     //     for (int i = 0; i < list.size(); i++) {
+    //     //         if(localVisited[list.get(i)]) return true;
+    //     //     }
+    //     // }
+    //     visited[current] = true;
+    //     localVisited[current] = true;
+    //     for (int i = 0; i < list.size(); i++) {
+
+    //         if(isSubGraphCyclic(adjList, list.get(i), visited, localVisited)) return true;
+    //     }
+    //     return false;
+    // }
+    // public static boolean isCyclePossible(ArrayList<ArrayList<Integer>> adjList, boolean[] visited) {
+    //     boolean[] localVisited = new boolean[adjList.size()]; // to avoid recreating arr.
+    //     for (int i = 0; i < visited.length; i++) {
+        
+    //         if(!visited[i]){
+    //             // System.out.println("call subgraph   "+i);
+    //             // if(isSubGraphCyclic(adjList,i,visited,new boolean[adjList.size()])) return true;//creating arr cause timlimit excedd.
+    //             for(int j = 0;j<localVisited.length;j++){
+    //                 localVisited[j] = false;
+	// 			}
+    //             if(isSubGraphCyclic(adjList,i,visited,localVisited)) return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+    ////same code but little tweak.
+    private static boolean isSubGraphCyclic(ArrayList<ArrayList<Integer>> adjList,int current, boolean[] visited) {
         // System.out.println(current+" ");
         ArrayList<Integer> list = adjList.get(current);
         if(list==null) return false;
-        if(localVisited[current]){
+        //way2
+        if(visited[current]){
             for (int i = 0; i < list.size(); i++) {
-                if(localVisited[list.get(i)]) return true;
+                if(visited[list.get(i)]) return true;
             }
         }
         visited[current] = true;
-        localVisited[current] = true;
         for (int i = 0; i < list.size(); i++) {
-            if(isSubGraphCyclic(adjList, list.get(i), visited, localVisited));
+
+            if(isSubGraphCyclic(adjList, list.get(i), visited)) return true;
         }
         return false;
     }
-    private static boolean isCyclePossible(ArrayList<ArrayList<Integer>> adjList, boolean[] visited) {
-        boolean[] localVisited = new boolean[adjList.size()];
-        // printAdjList(adjList);
+    public static boolean isCyclePossible(ArrayList<ArrayList<Integer>> adjList, boolean[] visited) {
         for (int i = 0; i < visited.length; i++) {
         
             if(!visited[i]){
-                // System.out.println("start subgraph   "+i);
-                if(isSubGraphCyclic(adjList,i,visited,localVisited)) return true;
+                if(isSubGraphCyclic(adjList,i,visited)) return true;
             }
         }
         return false;
@@ -93,31 +127,34 @@ public class CollegeCourses {
         for (int i = 0; i < adjList.size(); i++) {
             ArrayList<Integer> list = adjList.get(i);
             if(list!=null){
+                System.out.print(i+"-");
                 for (int j = 0; j < list.size(); j++) {
-                    System.out.print(j+"-"+list.get(j)+" ");
+                    System.out.print(list.get(j)+" ");
                 }
                 System.out.println();
             }
         }
     }
     public static void main(String[] args) throws IOException {
-        // FileReader r = new FileReader("/home/dipak/Bit_by_bit/DSA.learn/careercamp/graphs/graph-bonus/StringCircle.txt");
-		InputStreamReader r = new InputStreamReader(System.in);
+        FileReader r = new FileReader("/home/dipak/Bit_by_bit/DSA.learn/careercamp/graphs/graph-bonus/graph-smple-text.txt");
+		// InputStreamReader r = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(r);
-		// int n = Integer.parseInt(br.readLine().trim());
-		// int e = Integer.parseInt(br.readLine().trim());
-        int n = 4;
-        int e = 3;
-        // String[] courseDependency = br.readLine().trim().split(" ");
-        String[] courseDependency = {"0", "1", "1", "2", "2", "0"};
+		int n = Integer.parseInt(br.readLine().trim());
+		int e = Integer.parseInt(br.readLine().trim());
+        // int n = 4;
+        // int e = 3;
+        String[] courseDependency = br.readLine().trim().split(" ");
+        br.close();
+        r.close();
+        // String[] courseDependency = {"0", "1", "1", "2", "2", "0"};
         // String[] courseDependency = {"0", "1", "1", "2", "0" ,"2"};
     // // using adjcency matrix but java heap space error giveing
         // int[][] adjMatrix = new int[n][n];
-        // int courese = 0, prerequisites = 0; 
+        // int courses = 0, prerequisites = 0; 
         // for (int i = 0; i < e; i++) { // this is directed graph
-        //     courese = Integer.parseInt(courseDependency[2*i]);
+        //     courses = Integer.parseInt(courseDependency[2*i]);
         //     prerequisites = Integer.parseInt(courseDependency[2*i+1]);
-        //     adjMatrix[courese][prerequisites] = 1;
+        //     adjMatrix[courses][prerequisites] = 1;
         // }
         // if(isCyclePossible(adjMatrix,new boolean[n])){ // if their is any cycle then course cant be completed
         //     System.out.println("0");
@@ -128,20 +165,18 @@ public class CollegeCourses {
             adjList.add(null);
         }
 
-        int courese = 0, prerequisites = 0; 
+        int courses = 0, prerequisites = 0; 
         for (int i = 0; i < e; i++) { // this is directed graph
-            courese = Integer.parseInt(courseDependency[2*i]);
+            courses = Integer.parseInt(courseDependency[2*i]);
             prerequisites = Integer.parseInt(courseDependency[2*i+1]);
-            if(adjList.get(courese)==null) adjList.set(courese,new ArrayList<Integer>());
-            adjList.get(courese).add(prerequisites);
+            if(adjList.get(courses)==null) adjList.set(courses,new ArrayList<Integer>());
+                adjList.get(courses).add(prerequisites);
         }
-        printAdjList(adjList);
+        // printAdjList(adjList);
+        // System.out.println("first call");
         if(isCyclePossible(adjList,new boolean[n])){ // if their is any cycle then course cant be completed
-            System.out.println("0");
-        }else System.out.println("1");
-        
+            System.out.println("1");
+        }else System.out.println("0");
 
     }
-
-  
 }

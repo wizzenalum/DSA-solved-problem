@@ -16,9 +16,13 @@ public class cafeteria {
         arr1[0]=23;
         arr1[1]=35;
         int[] arr2 = {1,2};
-        System.out.print(arr2[1]);
-
-
-
+        System.out.println(arr2[1]);
+        // operators
+        int a = 10, b = 5;
+        System.out.println(++a+b++);
+        System.out.println(a++*++b);
+        System.out.println(a--+b++);
+        System.out.println(a+++b);
+        System.out.println(Integer.toString(-20,2));
     }
 }
