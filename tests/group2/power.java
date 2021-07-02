@@ -1,4 +1,4 @@
-package gorup2;
+package group2;
 
 public class power {
     public static void main(String[] args) {

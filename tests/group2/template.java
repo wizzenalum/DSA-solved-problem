@@ -1,4 +1,4 @@
-package gorup2;
+package group2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

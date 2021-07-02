@@ -1,4 +1,4 @@
-package gorup2;
+package group2;
 
 public class all {
     static int count;

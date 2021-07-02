@@ -1,4 +1,4 @@
-package gorup2;
+package group2;
 
 public class binaryplay {
     static public int binarySequence(int N, int X) {

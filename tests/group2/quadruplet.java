@@ -1,4 +1,4 @@
-package gorup2;
+package group2;
 
 import java.util.*;
 import java.util.ArrayList;
