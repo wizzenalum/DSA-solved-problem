@@ -24,5 +24,4 @@ public class checkPalindrome{
 		String str = "abbybb";
 		System.out.println(isStringPalindrome(str));
 	}
-
 }
