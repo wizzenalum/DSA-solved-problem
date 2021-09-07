@@ -68,7 +68,7 @@ public class isConnected{
 							{1, 1, 0, 0, 1, 0},  
 							{0, 0, 1, 1, 0, 0}, 
 							{0, 0, 0, 0, 0, 0}};
-		// Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		// int n = scan.nextInt();
 		// int e = scan.nextInt();
 		// int[][] graphAM = new int[n][n];
@@ -80,6 +80,7 @@ public class isConnected{
 		// }
 		// int[][] graphAM = {{0,1},
 		// 					{1,0}};
+		scan.close();
 		System.out.println(isConnectedDFT(graphAM));
 		// System.out.println("bredth first traversal");
 		System.out.println(isConnectedBFT(graphAM));

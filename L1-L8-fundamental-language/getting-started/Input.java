@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Input{
 	public static void main(String[] args) {
+		// this is how input taking place in java
 		Scanner input = new Scanner(System.in); 
 		int a = input.nextInt();   // a = the inetered integer
 		String b = input.nextLine(); // b = "" 

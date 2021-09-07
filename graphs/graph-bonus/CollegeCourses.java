@@ -136,18 +136,18 @@ public class CollegeCourses {
         }
     }
     public static void main(String[] args) throws IOException {
-        FileReader r = new FileReader("/home/dipak/Bit_by_bit/DSA.learn/careercamp/graphs/graph-bonus/graph-smple-text.txt");
+        // FileReader r = new FileReader("/home/dipak/Bit_by_bit/DSA.learn/careercamp/graphs/graph-bonus/graph-smple-text.txt");
 		// InputStreamReader r = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(r);
-		int n = Integer.parseInt(br.readLine().trim());
-		int e = Integer.parseInt(br.readLine().trim());
-        // int n = 4;
-        // int e = 3;
-        String[] courseDependency = br.readLine().trim().split(" ");
-        br.close();
-        r.close();
+		// BufferedReader br = new BufferedReader(r);
+		// int n = Integer.parseInt(br.readLine().trim());
+		// int e = Integer.parseInt(br.readLine().trim());
+        int n = 6;
+        int e = 5;
+        // String[] courseDependency = br.readLine().trim().split(" ");
+        // br.close();
+        // r.close();
         // String[] courseDependency = {"0", "1", "1", "2", "2", "0"};
-        // String[] courseDependency = {"0", "1", "1", "2", "0" ,"2"};
+        String[] courseDependency = {"1","2","1","3","3","2","2","4","2","5"};
     // // using adjcency matrix but java heap space error giveing
         // int[][] adjMatrix = new int[n][n];
         // int courses = 0, prerequisites = 0; 

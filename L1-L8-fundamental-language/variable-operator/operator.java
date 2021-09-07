@@ -20,8 +20,9 @@ public class operator{
 		// System.out.println("value "+ big+" in binary form"+Integer.toString(big,2));	
 		// big = big<<2;
 		// System.out.println("value "+ big+" in binary form"+Integer.toString(big,2));	
-
 		// int num= 0b0101;
+
+		
 
 
 

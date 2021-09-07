@@ -1,14 +1,12 @@
 {
     "java.project.sourcePaths": [
-        "tests/test-8",
-        "tests/test-7",
         "tests/codecef",
         "tests",
         "priority-queue/priority-bonus",
         "graphs/graph-bonus",
         "graphs/graph-1",
         "dynamic-programing/dp-Bonus",
-        "lecture1-6"
+        "L1-L8 -fundamental-language/variable-operator"
     ],
     "files.exclude": {
         "**/.class": true

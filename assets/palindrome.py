@@ -120,7 +120,7 @@ class palindrome:
                 if(i2-i1>end-start):start,end = i1,i2
                 i1, i2 = i1-1, i2+1
         return string[start:end+1]
-     # method 4
+     # method 4 manacher's algorithm preaty great and beutiful.
     def pl4(self,string:str)->str:
         ''' 1. create a length of palidromic string array  and not counting fot those which aare alredy counted.
             time complexity is O(n) and space complexity is O(n)  '''
@@ -132,7 +132,7 @@ class palindrome:
         for i in range(2,n):
             li, diff = 2*C-i, R-i
             if diff>0:
-                L[i] = L[li]
+                L[i] = min(L[li],diff)
             # print(li,diff,L[i],C,R,i,L, result_center, result_length)
             try:
                 while(  i+L[i]+1 < n and

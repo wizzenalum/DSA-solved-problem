@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
-public class GetPath{
+public class B_HasPath{
 
 	public static HashMap<Integer,Integer> visitMap = new HashMap<>();
 
@@ -81,7 +81,7 @@ public class GetPath{
 							{1, 1, 0, 0, 1, 0},//3  
 							{0, 0, 1, 1, 0, 0},//4 
 							{0, 0, 0, 0, 0, 0}};//5;
-		// Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		// int n = scan.nextInt();
 		// int e = scan.nextInt();
 		// int[][] graphAM = new int[n][n];
@@ -95,6 +95,7 @@ public class GetPath{
 		// int b = scan.nextInt();
 		// int[][] graphAM = {{0,1},
 		// 					{1,0}};
+		scan.close();
 		depthFirstTraversalGetPath(0,4,graphAM);
 		visitMap.clear();
 		System.out.println("bredth first traversal");

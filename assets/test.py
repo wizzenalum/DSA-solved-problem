@@ -1,25 +1,39 @@
 class p:
-    def pls3_helper(self,li:list,i:int,j:int,map:dict)->int:
-        '''' 1. here i used dp to track already visited indeces.
-             2. time Complexity O(3^n) space complexity O(n^2)  '''
-        if(j<i): return 0
-        if(str(i)+str(j) in map):
-            return map[str(i)+str(j)]
-        # print(i,j)
-        if i==j: 
-            return 1
-        elif li[i]==li[j]:
-            result =  1 + self.pls3_helper(li,i+1,j,map)+self.pls3_helper(li,i,j-1,map)
-        else: 
-            result =  self.pls3_helper(li,i+1,j,map)+self.pls3_helper(li,i,j-1,map)-self.pls3_helper(li,i+1,j-1,map)
-        map[str(i)+str(j)] = result
-        return result
+    def manacher(self,string:str)->str:
+        if(len(string)==0):return
+        LPS = [0]*(2*len(string)+1)
+        LPS[1] =1
+        c, cr = 1,2
+        maxPalindromeIndex = 0
+        # print(f"string is ${string} and Longest palendromic string is ${LPS} ")
+        for index in range(2,len(LPS)):
+            indexMirror = 2*c-index
+            diff = cr-index
+            if(diff>0): # it means index position is contain by center palendromic string
+                LPS[index] = min(LPS[indexMirror],diff)
+                # if string contained id smaller or diff is smaller we chose that.
 
-    def pls3(self,string:str)->int:
-        li = list(string)
-        return self.pls3_helper(li,0,len(li)-1,{})
-    def countPs(self,string):
-        # Code here
-        return self.pls3(string)
-o  = p()
-print(o.pls3("absdfgfbaaaaaaaaacd"))
+            try:
+                while(index-LPS[index]>0 and index+LPS[index]<len(LPS)) and \
+                    ((index+LPS[index]+1)%2==0 or\
+                        (string[(index+LPS[index]+1)//2]==string[(index-LPS[index]-1)//2])):
+                        LPS[index]+=1
+            except Exception as e:
+                pass
+            if(index+LPS[index]>cr):
+                    c,cr = index,index+LPS[index]
+            if(LPS[maxPalindromeIndex]<LPS[index]): maxPalindromeIndex = index
+        start = (maxPalindromeIndex-LPS[maxPalindromeIndex])//2
+        end = (maxPalindromeIndex+LPS[maxPalindromeIndex]-1)//2
+        # print(LPS,maxPalindromeIndex)
+        return string[start:end+1]
+obj = p()
+print(obj.manacher("babcbabcbaccba"))
+print(obj.manacher("abcbabcbabcba"))
+print(obj.manacher("abacdfgdcabba"))
+        
+        
+            
+
+
+    

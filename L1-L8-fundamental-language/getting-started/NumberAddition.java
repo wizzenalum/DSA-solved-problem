@@ -1,4 +1,4 @@
-public class AddNumber{
+public class A_AddNumber{
 	public static void main(String[] args){
 		// int tell that what type data it is. also tell the  how big storage will going to be.
 		int a;  // initialization
